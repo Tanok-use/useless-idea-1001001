@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ff5f87" />
+    <title>Make a Date ✦</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <div class="brand"><span class="brand-mark">✦</span> DATE NIGHT</div>
+      <div class="progress" aria-label="Progress"><span id="progressFill"></span></div>
+
+      <section class="screen active" id="inviteScreen" aria-labelledby="inviteTitle">
+        <div class="hero-art" aria-hidden="true"><span>♡</span><i>✦</i><b>⌁</b></div>
+        <p class="eyebrow">A little question</p>
+        <h1 id="inviteTitle">Would you like<br />to go on a date?</h1>
+        <p class="subcopy">I’d love to plan something we’ll both enjoy.</p>
+        <div class="button-stack invite-actions">
+          <button class="button primary" data-go="schedule">Yes, I would! <span>→</span></button>
+          <button class="button ghost" data-go="confirmNo">No, thank you</button>
+        </div>
+      </section>
+
+      <section class="screen" id="confirmNoScreen" aria-labelledby="confirmNoTitle">
+        <button class="text-back" data-go="invite">← Back</button>
+        <div class="face-art" aria-hidden="true">☹</div>
+        <p class="eyebrow">Before you go</p>
+        <h1 id="confirmNoTitle">Are you really sure?</h1>
+        <p class="subcopy">No pressure at all — I just want to make sure.</p>
+        <div class="button-stack">
+          <button class="button primary" data-go="declineReason">Yes, I’m sure</button>
+          <button class="button ghost" data-go="invite">Actually, let’s plan it!</button>
+        </div>
+      </section>
+
+      <section class="screen" id="declineReasonScreen" aria-labelledby="declineReasonTitle">
+        <button class="text-back" data-go="confirmNo">← Back</button>
+        <p class="eyebrow">Thank you for being honest</p>
+        <h1 id="declineReasonTitle">Would you share why?</h1>
+        <p class="subcopy">A full sentence helps me understand. This will stay respectful.</p>
+        <label class="field-label" for="declineReason">Your reason</label>
+        <textarea id="declineReason" rows="5" placeholder="I don’t think I’m interested because…"></textarea>
+        <p class="field-note" id="reasonNote">Please write at least one complete sentence.</p>
+        <button class="button primary wide" id="submitDecline">Send response <span>→</span></button>
+      </section>
+
+      <section class="screen" id="scheduleScreen" aria-labelledby="scheduleTitle">
+        <p class="eyebrow">Step 1 of 4</p>
+        <h1 id="scheduleTitle">Pick a day<br />and time.</h1>
+        <p class="subcopy">What works best for you?</p>
+        <div class="field-group">
+          <label class="field-label" for="dateInput">Date</label>
+          <input id="dateInput" type="date" />
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="timeInput">Time</label>
+          <input id="timeInput" type="time" />
+        </div>
+        <p class="field-note error" id="scheduleError" hidden>Please choose both a date and time.</p>
+        <div class="nav-row"><button class="button outline" data-go="invite">Back</button><button class="button primary" id="scheduleNext">Next <span>→</span></button></div>
+      </section>
+
+      <section class="screen" id="dateTypeScreen" aria-labelledby="dateTypeTitle">
+        <p class="eyebrow">Step 2 of 4</p>
+        <h1 id="dateTypeTitle">What sounds<br />good?</h1>
+        <p class="subcopy" id="dateContext">Choose a kind of date.</p>
+        <div class="choice-grid" id="dateTypes"></div>
+        <label class="field-label top-space" for="customPlan">Or make it your own</label>
+        <textarea id="customPlan" rows="3" placeholder="Type anything specific you’d like to do…"></textarea>
+        <p class="field-note">A specific idea replaces the suggestions above.</p>
+        <p class="field-note error" id="typeError" hidden>Choose a date type or write a specific idea.</p>
+        <div class="nav-row"><button class="button outline" data-go="schedule">Back</button><button class="button primary" id="typeNext">Next <span>→</span></button></div>
+      </section>
+
+      <section class="screen" id="ideaScreen" aria-labelledby="ideaTitle">
+        <p class="eyebrow">Step 3 of 4</p>
+        <h1 id="ideaTitle">Pick an idea.</h1>
+        <p class="subcopy" id="ideaContext"></p>
+        <div class="idea-list" id="ideas"></div>
+        <label class="field-label top-space" for="ideaCustom">Or add a specific plan</label>
+        <textarea id="ideaCustom" rows="3" placeholder="e.g. Bob’s Fancy Burgers after the beach"></textarea>
+        <p class="field-note error" id="ideaError" hidden>Pick an idea or enter a specific plan.</p>
+        <div class="nav-row"><button class="button outline" data-go="dateType">Back</button><button class="button primary" id="ideaNext">Review <span>→</span></button></div>
+      </section>
+
+      <section class="screen" id="foodCategoryScreen" aria-labelledby="foodCategoryTitle">
+        <p class="eyebrow">Step 3 of 4</p>
+        <h1 id="foodCategoryTitle">What are you<br />craving?</h1>
+        <p class="subcopy">Pick a food category, then we’ll narrow it down.</p>
+        <div class="choice-grid compact" id="foodCategories"></div>
+        <label class="field-label top-space" for="foodCustom">Or name the place</label>
+        <textarea id="foodCustom" rows="3" placeholder="Type a restaurant, treat, or food idea…"></textarea>
+        <p class="field-note error" id="foodCategoryError" hidden>Choose a category or enter a specific place.</p>
+        <div class="nav-row"><button class="button outline" data-go="dateType">Back</button><button class="button primary" id="foodCategoryNext">Next <span>→</span></button></div>
+      </section>
+
+      <section class="screen" id="foodIdeaScreen" aria-labelledby="foodIdeaTitle">
+        <p class="eyebrow">Step 4 of 4</p>
+        <h1 id="foodIdeaTitle">Pick a favorite.</h1>
+        <p class="subcopy" id="foodIdeaContext"></p>
+        <div class="idea-list" id="foodIdeas"></div>
+        <label class="field-label top-space" for="foodIdeaCustom">Or be specific</label>
+        <textarea id="foodIdeaCustom" rows="3" placeholder="e.g. Bob’s Fancy Burgers after the beach"></textarea>
+        <p class="field-note error" id="foodIdeaError" hidden>Pick an option or write a specific plan.</p>
+        <div class="nav-row"><button class="button outline" data-go="foodCategory">Back</button><button class="button primary" id="foodIdeaNext">Review <span>→</span></button></div>
+      </section>
+
+      <section class="screen" id="reviewScreen" aria-labelledby="reviewTitle">
+        <p class="eyebrow">Almost there</p>
+        <h1 id="reviewTitle">Your date<br />receipt.</h1>
+        <p class="subcopy">Take a look before you send it.</p>
+        <div class="receipt" id="receipt"></div>
+        <label class="check-row"><input type="checkbox" id="confirmSubmit" /><span>I’d like to submit this plan.</span></label>
+        <p class="field-note error" id="submitError" hidden>Please check the box to submit.</p>
+        <div class="nav-row"><button class="button outline" id="reviewBack">Edit</button><button class="button primary" id="submitPlan">Submit <span>→</span></button></div>
+      </section>
+
+      <section class="screen" id="sentScreen" aria-labelledby="sentTitle">
+        <div class="hero-art success-art" aria-hidden="true"><span>♥</span><i>✦</i><b>♡</b></div>
+        <p class="eyebrow">Sent!</p>
+        <h1 id="sentTitle">It’s a date.</h1>
+        <p class="subcopy" id="sentMessage">Your plan is on its way. Can’t wait!</p>
+        <div class="sent-card" id="sentCard"></div>
+        <button class="button ghost wide" id="copyReceipt">Copy my receipt</button>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
